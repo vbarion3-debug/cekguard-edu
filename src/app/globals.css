@@ -1,26 +1,280 @@
 @import "tailwindcss";
 
+@custom-variant dark (&:where([data-theme="dark"], [data-theme="dark"] *));
+
+/* ==========================================================================
+   CekGuard Edu — Design tokens
+   Every color used by components is a token so themes (light / dark /
+   high-contrast) can be swapped from a single place.
+   ========================================================================== */
+
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  --bg: #f5f7fb;
+  --surface: #ffffff;
+  --surface-2: #f0f4fa;
+  --border: #e2e8f0;
+  --border-strong: #8290a6;
+  --text: #0f1b2d;
+  --text-muted: #4e5d77;
+
+  --primary: #1d5fd8;
+  --primary-hover: #174cb0;
+  --primary-soft: #e8f0fe;
+  --on-primary: #ffffff;
+
+  --danger: #c0262d;
+  --danger-soft: #fdecec;
+  --warning: #9a5300;
+  --warning-soft: #fff3df;
+  --success: #17773b;
+  --success-soft: #e5f5ea;
+  --info: #0b6a94;
+  --info-soft: #e4f3fa;
+  --accent: #6d3ae0;
+  --accent-soft: #f0eafe;
+
+  --ring: #1d5fd8;
+  --shadow-card: 0 1px 2px rgb(16 24 40 / 0.04), 0 4px 18px rgb(16 24 40 / 0.06);
+  --shadow-pop: 0 10px 40px rgb(16 24 40 / 0.14);
+  --border-w: 1px;
+  --focus-w: 3px;
+
+  --reading-leading: 1.65;
+  --reading-tracking: 0;
+  --reading-word: 0;
+
+  color-scheme: light;
+}
+
+[data-theme="dark"] {
+  --bg: #0a1120;
+  --surface: #111a2d;
+  --surface-2: #17223a;
+  --border: #243150;
+  --border-strong: #6476a0;
+  --text: #e7edf8;
+  --text-muted: #a4b2ca;
+
+  --primary: #6fa3ff;
+  --primary-hover: #8db7ff;
+  --primary-soft: #172a50;
+  --on-primary: #08101f;
+
+  --danger: #ff8d86;
+  --danger-soft: #3b1519;
+  --warning: #ffbb5c;
+  --warning-soft: #3a2a10;
+  --success: #6fd897;
+  --success-soft: #10301d;
+  --info: #6cc8f2;
+  --info-soft: #0d2b3b;
+  --accent: #b9a0ff;
+  --accent-soft: #261b47;
+
+  --ring: #8db7ff;
+  --shadow-card: 0 1px 2px rgb(0 0 0 / 0.3), 0 4px 18px rgb(0 0 0 / 0.25);
+  --shadow-pop: 0 10px 40px rgb(0 0 0 / 0.5);
+  color-scheme: dark;
+}
+
+[data-contrast="high"] {
+  --bg: #ffffff;
+  --surface: #ffffff;
+  --surface-2: #ffffff;
+  --border: #000000;
+  --border-strong: #000000;
+  --text: #000000;
+  --text-muted: #1c1c1c;
+  --primary: #0030c0;
+  --primary-hover: #001f80;
+  --primary-soft: #e6ecff;
+  --danger: #9c0000;
+  --danger-soft: #ffffff;
+  --warning: #5c3200;
+  --warning-soft: #ffffff;
+  --success: #00561c;
+  --success-soft: #ffffff;
+  --info: #003d5c;
+  --info-soft: #ffffff;
+  --accent: #3d0099;
+  --accent-soft: #ffffff;
+  --ring: #000000;
+  --shadow-card: none;
+  --shadow-pop: 0 0 0 2px #000;
+  --border-w: 2px;
+  --focus-w: 4px;
+}
+
+[data-theme="dark"][data-contrast="high"] {
+  --bg: #000000;
+  --surface: #000000;
+  --surface-2: #000000;
+  --border: #ffffff;
+  --border-strong: #ffffff;
+  --text: #ffffff;
+  --text-muted: #f2f2f2;
+  --primary: #9fc2ff;
+  --primary-hover: #c6dbff;
+  --primary-soft: #001a4d;
+  --on-primary: #000000;
+  --danger: #ffaaa5;
+  --danger-soft: #000000;
+  --warning: #ffd27a;
+  --warning-soft: #000000;
+  --success: #8cf0b0;
+  --success-soft: #000000;
+  --info: #9fe3ff;
+  --info-soft: #000000;
+  --accent: #d6c6ff;
+  --accent-soft: #000000;
+  --ring: #ffff00;
+  --shadow-pop: 0 0 0 2px #fff;
+}
+
+/* Text size preference scales every rem-based measurement. */
+html[data-font="large"] {
+  font-size: 112.5%;
+}
+html[data-font="xl"] {
+  font-size: 125%;
+}
+
+/* Reading assistance: more generous spacing for long-form text. */
+html[data-reading="on"] {
+  --reading-leading: 1.95;
+  --reading-tracking: 0.02em;
+  --reading-word: 0.1em;
 }
 
 @theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+  --color-bg: var(--bg);
+  --color-surface: var(--surface);
+  --color-surface-2: var(--surface-2);
+  --color-border: var(--border);
+  --color-border-strong: var(--border-strong);
+  --color-fg: var(--text);
+  --color-fg-muted: var(--text-muted);
+  --color-primary: var(--primary);
+  --color-primary-hover: var(--primary-hover);
+  --color-primary-soft: var(--primary-soft);
+  --color-on-primary: var(--on-primary);
+  --color-danger: var(--danger);
+  --color-danger-soft: var(--danger-soft);
+  --color-warning: var(--warning);
+  --color-warning-soft: var(--warning-soft);
+  --color-success: var(--success);
+  --color-success-soft: var(--success-soft);
+  --color-info: var(--info);
+  --color-info-soft: var(--info-soft);
+  --color-accent: var(--accent);
+  --color-accent-soft: var(--accent-soft);
+  --font-sans: var(--font-jakarta), ui-sans-serif, system-ui, sans-serif;
+  --shadow-card: var(--shadow-card);
+  --shadow-pop: var(--shadow-pop);
+  --animate-fade-up: fade-up 0.4s ease-out both;
+  --animate-fade-in: fade-in 0.3s ease-out both;
+  --animate-pop: pop 0.35s cubic-bezier(0.2, 0.9, 0.3, 1.3) both;
+  --animate-scan: scan 1.6s ease-in-out infinite;
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
+@keyframes fade-up {
+  from {
+    opacity: 0;
+    transform: translateY(8px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+@keyframes fade-in {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+@keyframes pop {
+  from {
+    opacity: 0;
+    transform: scale(0.92);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+@keyframes scan {
+  0% {
+    transform: translateY(-100%);
+  }
+  100% {
+    transform: translateY(100%);
   }
 }
 
-body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+@layer base {
+  html {
+    -webkit-text-size-adjust: 100%;
+  }
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: var(--font-sans);
+    line-height: 1.55;
+    -webkit-font-smoothing: antialiased;
+  }
+  * {
+    border-color: var(--border);
+  }
+  :focus-visible {
+    outline: var(--focus-w) solid var(--ring);
+    outline-offset: 2px;
+    border-radius: 6px;
+  }
+  /* Keyboard mode: make focus impossible to miss. */
+  html[data-keyboard="on"] :focus-visible {
+    outline-width: calc(var(--focus-w) + 1px);
+    outline-offset: 3px;
+    box-shadow: 0 0 0 7px color-mix(in srgb, var(--ring) 25%, transparent);
+  }
+  [data-contrast="high"] a {
+    text-decoration: underline;
+  }
+  ::selection {
+    background: color-mix(in srgb, var(--primary) 25%, transparent);
+  }
+}
+
+@layer components {
+  .card {
+    background: var(--surface);
+    border: var(--border-w) solid var(--border);
+    border-radius: 1rem;
+    box-shadow: var(--shadow-card);
+  }
+  .reading {
+    line-height: var(--reading-leading);
+    letter-spacing: var(--reading-tracking);
+    word-spacing: var(--reading-word);
+  }
+  .sr-only-focusable:not(:focus) {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    overflow: hidden;
+    clip: rect(0 0 0 0);
+    white-space: nowrap;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.001ms !important;
+  }
 }
